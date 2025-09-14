@@ -1,7 +1,7 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
-
+import Logo from '../public/favicon.ico.jpg'
 const poppins = Poppins({ 
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700', '800'],
@@ -41,6 +41,7 @@ export default function RootLayout({
       <head>
         <link rel="canonical" href="https://letscapture.com" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="https://res.cloudinary.com/djkkjnmke/image/upload/v1757873313/lets_capture_logo_bo7okd.jpg" className='h-20 w-20' />
       </head>
       <body className={`${poppins.className} overflow-x-hidden`}>{children}</body>
     </html>

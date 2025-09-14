@@ -1,11 +1,12 @@
 "use client";
 
 import { useState } from 'react';
-import { Phone, Mail, MapPin, Send } from 'lucide-react';
+import { Phone, Mail, MapPin, Send, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import emailjs from 'emailjs-com';
+
 const ContactSection = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -13,6 +14,8 @@ const ContactSection = () => {
     subject: '',
     message: ''
   });
+
+  const [showPopup, setShowPopup] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -23,16 +26,24 @@ const ContactSection = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
     emailjs.send(
-    process.env.REACT_APP_EMAILJS_SERVICE_ID!,
-    process.env.REACT_APP_EMAILJS_TEMPLATE_ID!,
-    formData,
-    process.env.REACT_APP_EMAILJS_PUBLIC_KEY!
-  ).then(
-    () => alert('Form submitted successfully!'),
-    (err) => console.log('Failed:', err)
-  );
+      "service_mq3px51",
+      "template_g1s8vrx",
+      formData,
+      "zCEBmiLFk-0M0NdOs"
+    ).then(
+      () => {
+        setShowPopup(true);
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: ''
+        });
+        setTimeout(() => setShowPopup(false), 1000);
+      },
+      (err) => console.log('Failed:', err)
+    );
   };
 
   const contactInfo = [
@@ -57,7 +68,7 @@ const ContactSection = () => {
   ];
 
   return (
-    <section id="contact" className="py-20 bg-white">
+    <section id="contact" className="py-20 bg-white relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-5xl font-bold text-gray-900 mb-6">
@@ -71,7 +82,7 @@ const ContactSection = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Form */}
-          <div className="bg-gray-50 rounded-2xl p-8">
+          <div className="bg-gray-50 rounded-2xl p-8 relative">
             <h3 className="text-2xl font-bold text-gray-900 mb-6">Send Us a Message</h3>
             
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -124,11 +135,20 @@ const ContactSection = () => {
                 <Send className="ml-2 w-5 h-5" />
               </Button>
             </form>
+
+            {/* Popup Notification */}
+            {showPopup && (
+              <div className="absolute top-4 right-4 bg-white border border-green-500 text-green-700 px-4 py-3 rounded-lg shadow-lg transition-opacity duration-500 opacity-100">
+                <div className="flex items-center space-x-2">
+                  <CheckCircle className="w-6 h-6" />
+                  <span>Message sent successfully!</span>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Contact Info & Map */}
           <div className="space-y-8">
-            {/* Contact Info Cards */}
             <div className="space-y-4">
               {contactInfo.map((info, index) => {
                 const IconComponent = info.icon;
@@ -149,7 +169,6 @@ const ContactSection = () => {
               })}
             </div>
 
-            {/* Map */}
             <div className="bg-gray-200 rounded-2xl h-64 flex items-center justify-center">
               <div className="text-center text-gray-500">
                 <MapPin className="w-12 h-12 mx-auto mb-4" />
@@ -158,7 +177,6 @@ const ContactSection = () => {
               </div>
             </div>
 
-            {/* Office Hours */}
             <div className="bg-brand-purple/10 rounded-2xl p-6">
               <h4 className="text-xl font-bold text-gray-900 mb-4">Office Hours</h4>
               <div className="space-y-2 text-gray-600">
