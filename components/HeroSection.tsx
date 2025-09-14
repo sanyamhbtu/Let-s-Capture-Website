@@ -60,16 +60,17 @@ const HeroSection = () => {
           
 
           {/* Main Heading with Typewriter Effect */}
-          <h1 className="text-4xl sm:text-6xl lg:text-8xl font-bold text-white mb-8 leading-tight">
-            <span className="block text-shadow-glow">Let's Capture –</span>
-            <span className="block text-brand-yellow text-shadow-glow typewriter min-h-[1.2em]">
-              {heroTexts[currentText]}
-            </span>
-          </h1>
+          <h1 className="text-2xl sm:text-4xl lg:text-8xl font-bold text-white mb-8 leading-tight">
+  <span className="block text-shadow-glow">Let's Capture –</span>
+  <span className="block text-brand-yellow text-shadow-glow typewriter min-h-[1.2em] p-1 sm:p-2">
+    {heroTexts[currentText]}
+  </span>
+</h1>
+
           
           {/* Subtitle with Stagger Animation */}
           <div className="text-xl sm:text-3xl text-white/90 mb-12 max-w-4xl mx-auto leading-relaxed">
-            <div className="text-reveal">
+            <div className="text-reveal p-2">
               {["Creative", "solutions", "for", "podcasts,", "shoots,", "edits,", "and", "digital", "branding", "that", "elevate", "your", "story"].map((word, index) => (
                 <span 
                   key={index}
@@ -109,28 +110,29 @@ const HeroSection = () => {
           </div>
 
           {/* Service Icons with Floating Animation */}
-          <div className="flex justify-center items-center space-x-8 opacity-80">
-            {[
-              { icon: Mic, label: "Podcasts", delay: '4s' },
-              { icon: Camera, label: "Photography", delay: '4.2s' },
-              { icon: Video, label: "Videography", delay: '4.4s' },
-              { icon: Sparkles, label: "Editing", delay: '4.6s' }
-            ].map((item, index) => {
-              const IconComponent = item.icon;
-              return (
-                <div 
-                  key={index}
-                  className="flex flex-col items-center space-y-2 animate-slide-in-bottom"
-                  style={{ animationDelay: item.delay }}
-                >
-                  <div className="bg-white/10 glass-effect rounded-full p-4 floating">
-                    <IconComponent className="w-8 h-8 text-white" />
-                  </div>
-                  <span className="text-white/80 text-sm font-medium">{item.label}</span>
-                </div>
-              );
-            })}
-          </div>
+          <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-8 opacity-80">
+  {[
+    { icon: Mic, label: "Podcasts", delay: '4s' },
+    { icon: Camera, label: "Photography", delay: '4.2s' },
+    { icon: Video, label: "Videography", delay: '4.4s' },
+    { icon: Sparkles, label: "Editing", delay: '4.6s' }
+  ].map((item, index) => {
+    const IconComponent = item.icon;
+    return (
+      <div 
+        key={index}
+        className="flex flex-col items-center space-y-1 sm:space-y-2 animate-slide-in-bottom w-20 sm:w-auto"
+        style={{ animationDelay: item.delay }}
+      >
+        <div className="bg-white/10 glass-effect rounded-full p-3 sm:p-4 floating">
+          <IconComponent className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
+        </div>
+        <span className="text-white/80 text-xs sm:text-sm font-medium">{item.label}</span>
+      </div>
+    );
+  })}
+</div>
+
         </div>
       </div>
 
